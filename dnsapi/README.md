@@ -6,7 +6,7 @@ https://github.com/Neilpang/acme.sh/wiki/DNS-alias-mode
 
 ## 1. Use CloudFlare domain API to automatically issue cert
 
-First you need to login to your CloudFlare account to get your API key.
+First you need to login to your CloudFlare account to get your [API key](https://dash.cloudflare.com/profile). 
 
 ```
 export CF_Key="sdfsdfsdfljlbjkljlkjsdfoiwje"
@@ -454,7 +454,7 @@ The `Infoblox_Creds` and `Infoblox_Server` will be saved in `~/.acme.sh/account.
 First you need to create/obtain API tokens on your [settings panel](https://vscale.io/panel/settings/tokens/).
 
 ```
-VSCALE_API_KEY="sdfsdfsdfljlbjkljlkjsdfoiwje"
+export VSCALE_API_KEY="sdfsdfsdfljlbjkljlkjsdfoiwje"
 ```
 
 Ok, let's issue a cert now:
@@ -1013,6 +1013,46 @@ Now you can issue a certificate.
 ```sh
 acme.sh --issue --dns dns_namecheap -d example.com -d *.example.com
 ```
+
+## 54. Use MyDNS.JP API
+
+First, register to MyDNS.JP and get MasterID and Password.
+
+```
+export MYDNSJP_MasterID=MasterID
+export MYDNSJP_Password=Password
+```
+
+To issue a certificate:
+
+```
+acme.sh --issue --dns dns_mydnsjp -d example.com -d www.example.com
+```
+The `MYDNSJP_MasterID` and `MYDNSJP_Password` will be saved in `~/.acme.sh/account.conf` and will be reused when needed.
+
+## 55. Use hosting.de API
+
+Create an API key in your hosting.de account here: https://secure.hosting.de
+
+The key needs the following rights:
+- DNS_ZONES_EDIT
+- DNS_ZONES_LIST
+
+Set your API Key and endpoint:
+
+```
+export HOSTINGDE_APIKEY='xxx'
+export HOSTINGDE_ENDPOINT='https://secure.hosting.de'
+```
+
+The plugin can also be used for the http.net API. http.net customers have to set endpoint to https://partner.http.net.
+
+Ok, let's issue a cert now:
+```
+acme.sh --issue --dns dns_hostingde -d example.com -d *.example.com
+```
+
+The hosting.de API key and endpoint will be saved in `~/.acme.sh/account.conf` and will be reused when needed.
 
 # Use custom API
 
